@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>បញ្ជីសមាជិកបណ្ដាញមហាសិរី - Mohaserei System Update Member (MSN)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1b4d3e;
+            --secondary-color: #d4af37;
+            --dark-color: #111827;
+            --light-bg: #f4f6f9;
+            --white: #ffffff;
+            --border-color: #e5e7eb;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-color);
+            display: flex;
+            min-height: 100vh;
+        }
+        /* Sidebar Navigation */
+        aside {
+            width: 280px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        .brand-box {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.15);
+        }
+        .brand-box img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary-color);
+        }
+        .brand-box h1 {
+            font-size: 1.05rem;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        .brand-box p {
+            font-size: 0.75rem;
+            color: #d1d5db;
+        }
+        .nav-menu {
+            list-style: none;
+            padding: 15px 0;
+            flex-grow: 1;
+        }
+        .nav-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 20px;
+            color: #e5e7eb;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        .nav-menu li a:hover, .nav-menu li a.active {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        /* Main Content */
+        main {
+            margin-left: 280px;
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: var(--white);
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        header h2 {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        .user-profile i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+        /* Summary Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: var(--white);
+            padding: 18px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--secondary-color);
+        }
+        .stat-card h3 {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+        .stat-card .value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        /* Filter & Search Section */
+        .section-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+        }
+        .section-card h3 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .filter-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #374151;
+        }
+        .filter-group input, .filter-group select {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            background: #fff;
+        }
+        .filter-group input:focus, .filter-group select:focus {
+            border-color: var(--primary-color);
+        }
+        .btn-reset {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            align-self: flex-end;
+            transition: background 0.3s;
+        }
+        .btn-reset:hover {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+        /* Member Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.88rem;
+        }
+        th {
+            background-color: #f8fafc;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+        tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-1 { background: #fee2e2; color: #991b1b; }
+        .badge-2 { background: #fef3c7; color: #92400e; }
+        .badge-3 { background: #e0e7ff; color: #3730a3; }
+        .badge-4 { background: #d1fae5; color: #065f46; }
+        .badge-5 { background: #fae8ff; color: #86198f; }
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-inactive {
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .btn-passport {
+            background: var(--secondary-color);
+            color: var(--dark-color);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-passport:hover {
+            opacity: 0.85;
+        }
+        /* Modal for Economic Passport (ECO-002) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 200;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 14px;
+            width: 90%;
+            max-width: 520px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-top: 6px solid var(--secondary-color);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+        .modal-header h4 {
+            color: var(--primary-color);
+            font-size: 1.15rem;
+        }
+        .close-btn {
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #6b7280;
+        }
+        .passport-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 0.92rem;
+        }
+        .passport-row span:first-child {
+            color: #6b7280;
+            font-weight: 500;
+        }
+        .passport-row span:last-child {
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        @media (max-width: 768px) {
+            aside { width: 100%; height: auto; position: relative; }
+            main { margin-left: 0; padding: 15px; }
+            body { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside>
+        <div class="brand-box">
+            <img src="mohaserey.jpg" alt="Mohaserei Logo" onerror="this.src='https://via.placeholder.com/50?text=MSN'">
+            <div>
+                <h1>បណ្ដាញមហាសិរី</h1>
+                <p>Mohaserei Network (MSN)</p>
+            </div>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="moha_serei_system_update_dashboard.html"><i class="fas fa-chart-line"></i> ផ្ទាំងគ្រប់គ្រងជាតិ (Dashboard)</a></li>
+            <li><a href="moha_serei_system_update_registration.html"><i class="fas fa-user-plus"></i> ចុះឈ្មោះសមាជិកបណ្ដាញ</a></li>
+            <li><a href="#" class="active"><i class="fas fa-users"></i> បញ្ជីសមាជិកទូទាំងប្រទេស</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main>
+        <header>
+            <h2>ប្រព័ន្ធគ្រប់គ្រងសមាជិកបណ្ដាញមហាសិរី (Mohaserei Member Directory)</h2>
+            <div class="user-profile">
+                <i class="fas fa-id-card"></i>
+                <span>MDR-001 Member Registry</span>
+            </div>
+        </header>
+
+        <!-- Summary Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>សមាជិកបង្ហាញក្នុងបញ្ជី</h3>
+                <div class="value" id="stat-total">0 នាក់</div>
+            </div>
+            <div class="stat-card">
+                <h3>សមាជិកសកម្ម (Active)</h3>
+                <div class="value" id="stat-active">0 នាក់</div>
+            </div>
+            <div class="stat-card">
+                <h3>ពិន្ទុសេដ្ឋកិច្ចសរុប (Total UES)</h3>
+                <div class="value" id="stat-ues">0 ពិន្ទុ</div>
+            </div>
+            <div class="stat-card">
+                <h3>ខេត្ត/រាជធានី គ្របដណ្ដប់</h3>
+                <div class="value">25 រាជធានី-ខេត្ត</div>
+            </div>
+        </div>
+
+        <!-- Filter & Search Box -->
+        <div class="section-card">
+            <h3><i class="fas fa-filter"></i> ស្វែងរកសមាជិកតាមមូលដ្ឋាន និងប្រភេទចូលរួម</h3>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label>ស្វែងរកតាមឈ្មោះ ឬ លេខកូដសមាជិក</label>
+                    <input type="text" id="searchInput" placeholder="ឧ. MSN-001 ឬ ឈ្មោះ..." onkeyup="filterMembers()">
+                </div>
+                <div class="filter-group">
+                    <label>រាជធានី / ខេត្ត</label>
+                    <select id="provinceFilter" onchange="filterMembers()">
+                        <option value="">-- ទូទាំងប្រទេស (២៥ រាជធានី-ខេត្ត) --</option>
+                        <option value="រាជធានីភ្នំពេញ">រាជធានីភ្នំពេញ</option>
+                        <option value="ខេត្តកណ្ដាល">ខេត្តកណ្ដាល</option>
+                        <option value="ខេត្តសៀមរាប">ខេត្តសៀមរាប</option>
+                        <option value="ខេត្តបាត់ដំបង">ខេត្តបាត់ដំបង</option>
+                        <option value="ខេត្តព្រះសីហនុ">ខេត្តព្រះសីហនុ</option>
+                        <option value="ខេត្តកំពង់ចាម">ខេត្តកំពង់ចាម</option>
+                        <option value="ខេត្តតាកែវ">ខេត្តតាកែវ</option>
+                        <option value="ខេត្តកំពត">ខេត្តកំពត</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>ប្រភេទចូលរួមទាំង ៥</label>
+                    <select id="categoryFilter" onchange="filterMembers()">
+                        <option value="">-- គ្រប់ប្រភេទចូលរួម --</option>
+                        <option value="1">១. អ្នកមានកម្លាំងពលកម្ម+ពេលវេលា</option>
+                        <option value="2">២. អ្នកមានចំណេះជំនាញ</option>
+                        <option value="3">៣. អ្នកមានធនធាន</option>
+                        <option value="4">៤. អ្នកមានបណ្ដាញទំនាក់ទំនង</option>
+                        <option value="5">៥. អ្នកម្ចាស់អាជីវកម្ម</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>ស្ថានភាពសមាជិក</label>
+                    <select id="statusFilter" onchange="filterMembers()">
+                        <option value="">-- ទាំងអស់ --</option>
+                        <option value="សកម្ម (Active)">សកម្ម (Active)</option>
+                        <option value="អសកម្ម (Inactive)">អសកម្ម (Inactive)</option>
+                    </select>
+                </div>
+                <button class="btn-reset" onclick="resetFilters()"><i class="fas fa-sync-alt"></i> កំណត់ឡើងវិញ</button>
+            </div>
+
+            <!-- Members Table -->
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>លេខកូដ MSN</th>
+                            <th>ឈ្មោះសមាជិក</th>
+                            <th>រាជធានី/ខេត្ត - ស្រុក/ខណ្ឌ - ឃុំ/សង្កាត់</th>
+                            <th>ប្រភេទចូលរួម</th>
+                            <th>តំណែង (Rank)</th>
+                            <th>ពិន្ទុ UES</th>
+                            <th>ស្ថានភាព</th>
+                            <th>អត្តសញ្ញាណសេដ្ឋកិច្ច</th>
+                        </tr>
+                    </thead>
+                    <tbody id="memberTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Economic Passport Modal (ECO-002) -->
+    <div id="passportModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4><i class="fas fa-passport"></i> លិខិតឆ្លងដែនសេដ្ឋកិច្ចឌីជីថល (ECO-002)</h4>
+                <span class="close-btn" onclick="closePassport()">&times;</span>
+            </div>
+            <div id="passportDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        const members = [
+            {
+                id: "MSN-KH-0001",
+                name: "សុខ ចាន់ណា",
+                phone: "012 333 444",
+                province: "រាជធានីភ្នំពេញ",
+                district: "ខណ្ឌចំការមន",
+                commune: "សង្កាត់ទន្លេបាសាក់",
+                catCode: "1",
+                category: "១. អ្នកមានកម្លាំងពលកម្ម+ពេលវេលា (លក់និងដឹកជញ្ជូនផ្ទាល់)",
+                rank: "Coordinator",
+                govRole: "Commune Leader (មេឃុំ/សង្កាត់)",
+                ues: 14500,
+                hcv: "$3,200",
+                networkSize: 68,
+                status: "សកម្ម (Active)"
+            },
+            {
+                id: "MSN-KH-0002",
+                name: "ម៉េង វុទ្ធី",
+                phone: "011 555 666",
+                province: "ខេត្តសៀមរាប",
+                district: "ក្រុងសៀមរាប",
+                commune: "សង្កាត់ស្លក្រាម",
+                catCode: "2",
+                category: "២. អ្នកមានចំណេះជំនាញ (គណនេយ្យ+បណ្ដុះបណ្ដាល+បច្ចេកវិទ្យា)",
+                rank: "Supervisor",
+                govRole: "District Leader (ប្រធានស្រុក/ក្រុង)",
+                ues: 58200,
+                hcv: "$12,800",
+                networkSize: 320,
+                status: "សកម្ម (Active)"
+            },
+            {
+                id: "MSN-KH-0003",
+                name: "លី សុវណ្ណារ៉ា",
+                phone: "015 888 999",
+                province: "រាជធានីភ្នំពេញ",
+                district: "ខណ្ឌទួលគោក",
+                commune: "សង្កាត់បឹងកក់ទី១",
+                catCode: "3",
+                category: "៣. អ្នកមានធនធាន (ទ្រព្យសម្បត្តិ+ហិរញ្ញវត្ថុ)",
+                rank: "Director",
+                govRole: "Provincial Leader (ប្រធានរាជធានី)",
+                ues: 540000,
+                hcv: "$115,000",
+                networkSize: 2150,
+                status: "សកម្ម (Active)"
+            },
+            {
+                id: "MSN-KH-0004",
+                name: "ចាន់ ធីតា",
+                phone: "092 444 777",
+                province: "ខេត្តបាត់ដំបង",
+                district: "ស្រុកសង្កែ",
+                commune: "ឃុំរកា",
+                catCode: "4",
+                category: "៤. អ្នកមានបណ្ដាញទំនាក់ទំនង (ធនធានមនុស្ស+អាជីវកម្ម)",
+                rank: "Manager",
+                govRole: "District Leader (ប្រធានស្រុក)",
+                ues: 165000,
+                hcv: "$34,500",
+                networkSize: 940,
+                status: "សកម្ម (Active)"
+            },
+            {
+                id: "MSN-KH-0005",
+                name: "គឹម ស្រីលក្ខណ៍",
+                phone: "098 777 888",
+                province: "ខេត្តកណ្ដាល",
+                district: "ក្រុងតាខ្មៅ",
+                commune: "សង្កាត់ដើមអំពិល",
+                catCode: "5",
+                category: "៥. អ្នកម្ចាស់អាជីវកម្ម (ម្ចាស់តូប+សិប្បកម្ម+សហគ្រាស+រោងចក្រ)",
+                rank: "Associate",
+                govRole: "Village Leader (មេភូមិ)",
+                ues: 4800,
+                hcv: "$1,450",
+                networkSize: 25,
+                status: "សកម្ម (Active)"
+            },
+            {
+                id: "MSN-KH-0006",
+                name: "ហេង ប៊ុនថន",
+                phone: "077 222 111",
+                province: "ខេត្តព្រះសីហនុ",
+                district: "ក្រុងព្រះសីហនុ",
+                commune: "សង្កាត់លេខ៤",
+                catCode: "1",
+                category: "១. អ្នកមានកម្លាំងពលកម្ម+ពេលវេលា (ភ្នាក់ងារអសកម្ម)",
+                rank: "Member",
+                govRole: "Member (សមាជិកមូលដ្ឋាន)",
+                ues: 650,
+                hcv: "$180",
+                networkSize: 4,
+                status: "អសកម្ម (Inactive)"
+            }
+        ];
+
+        function renderMembers(list) {
+            const tbody = document.getElementById("memberTableBody");
+            tbody.innerHTML = "";
+
+            let activeCount = 0;
+            let totalUES = 0;
+
+            list.forEach(m => {
+                if (m.status.includes("សកម្ម (Active)")) activeCount++;
+                totalUES += m.ues;
+
+                const statusClass = m.status.includes("សកម្ម (Active)") ? "status-active" : "status-inactive";
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${m.id}</strong></td>
+                        <td>${m.name}<br><small style="color:#6b7280;">${m.phone}</small></td>
+                        <td>${m.province} - ${m.district} - ${m.commune}</td>
+                        <td><span class="badge badge-${m.catCode}">${m.category}</span></td>
+                        <td><strong>${m.rank}</strong></td>
+                        <td>${m.ues.toLocaleString()}</td>
+                        <td><span class="${statusClass}">${m.status}</span></td>
+                        <td><button class="btn-passport" onclick="openPassport('${m.id}')"><i class="fas fa-eye"></i> មើលព័ត៌មាន</button></td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById("stat-total").innerText = list.length + " នាក់";
+            document.getElementById("stat-active").innerText = activeCount + " នាក់";
+            document.getElementById("stat-ues").innerText = totalUES.toLocaleString() + " ពិន្ទុ";
+        }
+
+        function filterMembers() {
+            const search = document.getElementById("searchInput").value.toLowerCase();
+            const province = document.getElementById("provinceFilter").value;
+            const category = document.getElementById("categoryFilter").value;
+            const status = document.getElementById("statusFilter").value;
+
+            const filtered = members.filter(m => {
+                const matchSearch = m.name.toLowerCase().includes(search) || m.id.toLowerCase().includes(search);
+                const matchProvince = province === "" || m.province === province;
+                const matchCategory = category === "" || m.catCode === category;
+                const matchStatus = status === "" || m.status === status;
+                return matchSearch && matchProvince && matchCategory && matchStatus;
+            });
+
+            renderMembers(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("provinceFilter").value = "";
+            document.getElementById("categoryFilter").value = "";
+            document.getElementById("statusFilter").value = "";
+            renderMembers(members);
+        }
+
+        function openPassport(memberId) {
+            const m = members.find(item => item.id === memberId);
+            if (!m) return;
+
+            document.getElementById("passportDetails").innerHTML = `
+                <div class="passport-row"><span>លេខកូដអត្តសញ្ញាណ (Economic ID):</span><span>${m.id}</span></div>
+                <div class="passport-row"><span>ឈ្មោះសមាជិក:</span><span>${m.name}</span></div>
+                <div class="passport-row"><span>ទីតាំងមូលដ្ឋាន:</span><span>${m.province}, ${m.district}, ${m.commune}</span></div>
+                <div class="passport-row"><span>ប្រភេទចូលរួម:</span><span>${m.category}</span></div>
+                <div class="passport-row"><span>កម្រិតតំណែង (Economic Rank):</span><span>${m.rank}</span></div>
+                <div class="passport-row"><span>កម្រិតអភិបាលកិច្ច (Governance Level):</span><span>${m.govRole}</span></div>
+                <div class="passport-row"><span>ពិន្ទុសេដ្ឋកិច្ចសកល (UES):</span><span>${m.ues.toLocaleString()} ពិន្ទុ</span></div>
+                <div class="passport-row"><span>តម្លៃមូលធនមនុស្ស (Human Capital Value):</span><span>${m.hcv}</span></div>
+                <div class="passport-row"><span>ទំហំបណ្ដាញសមាជិក (Network Size):</span><span>${m.networkSize.toLocaleString()} នាក់</span></div>
+            `;
+            document.getElementById("passportModal").style.display = "flex";
+        }
+
+        function closePassport() {
+            document.getElementById("passportModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("passportModal");
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Initial load
+        renderMembers(members);
+    </script>
+</body>
+</html>
